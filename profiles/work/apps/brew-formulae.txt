@@ -1,0 +1,5 @@
+# Work-profile CLI tools.
+# Add work-specific formulae here; shared formulae are in profiles/shared/apps/brew-formulae.txt.
+# Format: one formula per line; lines starting with # are ignored.
+
+# TODO: Add work-specific CLI tools here

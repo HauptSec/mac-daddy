@@ -1,0 +1,5 @@
+# Personal-profile direct download apps.
+# Add personal apps not available on Homebrew here.
+# See profiles/shared/apps/direct-downloads.yaml for field documentation.
+
+apps: []

@@ -1,0 +1,10 @@
+# Shared GUI apps — installed for all profiles.
+# Edit this list to match your preferences.
+# Format: one cask name per line; lines starting with # are ignored.
+
+claude-code
+iterm2
+maccy
+python
+visual-studio-code
+vivaldi

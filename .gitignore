@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Claude Code
+.claude/settings.local.json
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and runtime state
+~/.mac-daddy/
+*.log
+
+# Secrets (never commit these)
+.env
+.env.*
+*.pem
+*.key
+id_rsa
+id_ed25519

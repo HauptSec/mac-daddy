@@ -1,0 +1,53 @@
+name: Validate
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+
+  # ── 1. Shell script linting ────────────────────────────────────────────────
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck on all shell scripts
+        run: |
+          find scripts/ profiles/ -name "*.sh" -print0 \
+            | xargs -0 shellcheck --rcfile=.shellcheckrc --severity=warning
+
+  # ── 2. Repository structure and format validation ─────────────────────────
+  validate-structure:
+    name: Validate Structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run validate.sh
+        run: bash scripts/validate.sh
+
+  # ── 3. Dry-run smoke test for each profile ────────────────────────────────
+  dry-run-smoke-test:
+    name: Dry Run (${{ matrix.profile }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        profile: [work, personal]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dry run — ${{ matrix.profile }} profile
+        # --skip-macos-defaults because `defaults` is macOS-only.
+        # Non-macOS + dry-run is explicitly supported: preflight is skipped
+        # with a warning, brew/dotfiles steps print their DRY-RUN actions.
+        run: bash scripts/install.sh ${{ matrix.profile }} --dry-run --skip-macos-defaults

@@ -1,0 +1,6 @@
+# Personal-profile GUI apps — installed only for the personal profile.
+# Format: one cask name per line; lines starting with # are ignored.
+
+discord
+obsidian
+spotify

@@ -1,0 +1,17 @@
+# .zshrc.local — personal profile zsh config.
+# Sourced at the end of ~/.zshrc (which is symlinked from profiles/shared/dotfiles/.zshrc).
+# Changes here apply only when the personal profile is active.
+# Edit this file in the mac-daddy repo; the symlink keeps it live-synced.
+
+# ─── Personal PATH additions ──────────────────────────────────────────────────
+# TODO: Add personal tool paths
+# export PATH="${HOME}/personal-tools/bin:${PATH}"
+
+# ─── Personal environment variables ──────────────────────────────────────────
+# TODO: Add non-secret personal env vars
+# export PERSONAL_PROJECTS="${HOME}/Projects"
+
+# ─── Personal aliases ─────────────────────────────────────────────────────────
+# TODO: Add personal convenience aliases
+# alias projects='cd "${PERSONAL_PROJECTS}"'
+# alias blog='cd "${HOME}/Projects/blog"'

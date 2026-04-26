@@ -1,0 +1,16 @@
+# Shared direct download apps — installed for all profiles.
+# Add apps here that are not available on Homebrew.
+#
+# Required fields: name, url, type (dmg|pkg), app_name
+# Optional fields: checksum (sha256:hexdigest or sha512:hexdigest), post_install
+#
+# Example (remove # to enable):
+# apps:
+#   - name: "ExampleApp"
+#     url: "https://example.com/ExampleApp.dmg"
+#     type: dmg
+#     app_name: "ExampleApp.app"
+#     checksum: ""
+#     post_install: ""
+
+apps: []

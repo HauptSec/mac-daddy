@@ -1,0 +1,23 @@
+# .zshrc.local — work profile zsh config.
+# Sourced at the end of ~/.zshrc (which is symlinked from profiles/shared/dotfiles/.zshrc).
+# Changes here apply only when the work profile is active.
+# Edit this file in the mac-daddy repo; the symlink keeps it live-synced.
+
+# ─── Work PATH additions ──────────────────────────────────────────────────────
+# TODO: Add work-specific tools to PATH
+# export PATH="/path/to/work/tool/bin:${PATH}"
+
+# ─── Work environment variables ──────────────────────────────────────────────
+# TODO: Set non-secret work env vars (no credentials here — see secrets note in CLAUDE.md)
+# export WORK_ENV="development"
+# export COMPANY_DOMAIN="yourcompany.com"
+
+# ─── Work aliases ─────────────────────────────────────────────────────────────
+# TODO: Add work-specific shell aliases
+# alias vpn='open -a "Cisco AnyConnect"'
+# alias standup='open "https://yourcompany.atlassian.net/jira/..."'
+
+# ─── Work git config override ─────────────────────────────────────────────────
+# Override the shared .gitconfig email for work commits:
+# export GIT_AUTHOR_EMAIL="you@yourcompany.com"
+# export GIT_COMMITTER_EMAIL="you@yourcompany.com"

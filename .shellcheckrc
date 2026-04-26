@@ -1,0 +1,5 @@
+shell=bash
+enable=all
+# SC2034: unused variable — sourced lib files export vars consumed by other scripts
+# SC2154: referenced but not assigned — vars set in utils.sh and exported to all lib files
+disable=SC2034,SC2154
