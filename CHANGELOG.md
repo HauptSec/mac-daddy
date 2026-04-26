@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [1.0.0] - 2026-04-26
 
 ### Added
 - Initial project structure: `work` and `personal` profiles with shared base layer
@@ -20,3 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Profile-specific dotfiles (`.zshrc.local`) and macOS override files
 - `.github/workflows/validate.yml` — CI with shellcheck, structure validation, and dry-run smoke tests
 - `.claude/` documentation: `CLAUDE.md`, `architecture.md`, and command guides
+- `.gitignore` covering macOS artifacts, editor files, logs, and secrets
+- Shared casks: `claude-code`, `iterm2`, `maccy`, `python`, `visual-studio-code`, `vivaldi`
+- Shared formulae: `curl`, `git`, `wget`
+- Work casks: `slack`, `zoom`
+- Personal casks: `discord`, `obsidian`, `spotify`
+- README "How to Update a Dotfile" section linking to `.claude/commands/update-dotfile.md`
