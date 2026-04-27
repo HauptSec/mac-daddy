@@ -1,5 +1,9 @@
 # Work-profile GUI apps — installed only for the work profile.
 # Format: one cask name per line; lines starting with # are ignored.
 
+chatgpt
+citrix-workspace
+pingid
+postman
 slack
 zoom

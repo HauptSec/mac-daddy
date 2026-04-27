@@ -28,3 +28,6 @@ Icon
 *.key
 id_rsa
 id_ed25519
+
+# Development Files
+TODO.md
