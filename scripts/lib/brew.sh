@@ -139,6 +139,9 @@ configure_brew_autoupdate() {
     return 0
   fi
 
+  log_info "Installing pinentry-mac (required for --sudo autoupdate)..."
+  brew install pinentry-mac
+
   log_info "Starting brew autoupdate (every 12h)..."
   if brew autoupdate start 43200 --upgrade --cleanup --immediate --sudo; then
     log_success "brew autoupdate configured."

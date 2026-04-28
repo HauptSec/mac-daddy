@@ -6,5 +6,6 @@ curl
 fzf
 git
 pam-reattach
+pinentry-mac
 wget
 zoxide

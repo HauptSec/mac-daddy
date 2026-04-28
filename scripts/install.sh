@@ -84,13 +84,13 @@ record_fail() { INSTALL_ERRORS+=("${RED}✗${RESET} $*"); }
 
 # ─── Profile menu ─────────────────────────────────────────────────────────────
 choose_profile() {
-  printf "\n${BLUE}${BOLD}┌─────────────────────────────────────┐\n"
-  printf "│           mac-daddy setup           │\n"
-  printf "└─────────────────────────────────────┘${RESET}\n\n"
-  printf "Select a profile:\n\n"
-  printf "  ${BOLD}1)${RESET} work      — dev tools, Slack, Zoom, work git config\n"
-  printf "  ${BOLD}2)${RESET} personal  — personal apps, Spotify, Discord\n\n"
-  printf "Choice [1/2]: "
+  printf "\n${BLUE}${BOLD}┌─────────────────────────────────────┐\n" >&2
+  printf "│           mac-daddy setup           │\n" >&2
+  printf "└─────────────────────────────────────┘${RESET}\n\n" >&2
+  printf "Select a profile:\n\n" >&2
+  printf "  ${BOLD}1)${RESET} work      — dev tools, Slack, Zoom, work git config\n" >&2
+  printf "  ${BOLD}2)${RESET} personal  — personal apps, Spotify, Discord\n\n" >&2
+  printf "Choice [1/2]: " >&2
   local choice
   read -r choice
   case "$choice" in
