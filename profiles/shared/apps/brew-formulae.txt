@@ -4,6 +4,7 @@
 
 autojump
 curl
+fzf
 git
 pam-reattach
 wget
