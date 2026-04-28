@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="mac-daddy-logo.svg" alt="mac-daddy logo" width="520"/>
+  <img src="mac-daddy-logo.svg" alt="mac-daddy logo" width="1000"/>
 </p>
 
 # mac-daddy
