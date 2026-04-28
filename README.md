@@ -32,10 +32,10 @@ The script will prompt you to choose a profile if you don't specify one.
 
 | Profile | Who it's for | Extra apps |
 |---------|-------------|------------|
-| **work** | Work / development machine | Slack, Zoom, Notion |
-| **personal** | Personal machine | Spotify, Discord |
+| **work** | Work / development machine | ChatGPT, Citrix Workspace, PingID, Postman, Slack, Zoom |
+| **personal** | Personal machine | Discord, Obsidian, Spotify |
 
-Both profiles share a common base: CLI tools, Alfred, iTerm2, Rectangle, 1Password, Oh My Zsh, and the full macOS defaults setup.
+Both profiles share a common base: Claude, Claude Code, iTerm2, Maccy, Python, VS Code, Vivaldi, Oh My Zsh + Powerlevel10k, and the full macOS defaults setup.
 
 ## Available Flags
 
@@ -47,7 +47,7 @@ Both profiles share a common base: CLI tools, Alfred, iTerm2, Rectangle, 1Passwo
 |------|--------|
 | `--dry-run` | Print every action without executing anything |
 | `--verbose` | Log each command before running it |
-| `--skip-macos-defaults` | Skip all `defaults write` system preference changes |
+| `--skip-macos-defaults` | Skip `defaults write` changes and Touch ID for sudo setup |
 
 Flags can be combined and appear in any order:
 ```bash
@@ -55,15 +55,32 @@ Flags can be combined and appear in any order:
 ./scripts/install.sh personal --skip-macos-defaults
 ```
 
+## What Gets Configured
+
+**Shell**
+- Oh My Zsh with Powerlevel10k theme (rainbow, 2-line prompt)
+- Plugins: `git`, `autojump`, `sudo`, `vscode`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `z`, `fzf`
+- History sharing across sessions, deduplication, ignore-space
+- Modern aliases: `eza` for `ls`, `bat` for `cat`, `zoxide` for `cd` (when installed)
+
+**Security**
+- Touch ID for `sudo` via `/etc/pam.d/sudo_local` (Sonoma+ compatible)
+- `pam-reattach` so Touch ID works inside tmux
+
+**macOS System Preferences**
+- Comprehensive `defaults write` settings (Dock, Finder, keyboard, trackpad, screenshots, etc.)
+- Profile-specific overrides applied after shared defaults
+
 ## How to Customize
 
-After cloning, edit these five things to make it yours:
+After cloning, edit these to make it yours:
 
 1. **`profiles/shared/dotfiles/.gitconfig`** — replace the TODO name/email with yours
-2. **`profiles/shared/apps/brew-formulae.txt`** — your CLI tools
-3. **`profiles/shared/apps/brew-casks.txt`** — your GUI apps
-4. **`profiles/shared/macos/defaults.sh`** — tweak any system preference values
-5. **`profiles/{work,personal}/apps/brew-casks.txt`** — profile-specific apps
+2. **`profiles/shared/dotfiles/.p10k.zsh`** — your Powerlevel10k prompt config (run `p10k configure` to regenerate)
+3. **`profiles/shared/apps/brew-formulae.txt`** — your CLI tools
+4. **`profiles/shared/apps/brew-casks.txt`** — your GUI apps
+5. **`profiles/shared/macos/defaults.sh`** — tweak any system preference values
+6. **`profiles/{work,personal}/apps/brew-casks.txt`** — profile-specific apps
 
 ## How to Update an Existing Machine
 

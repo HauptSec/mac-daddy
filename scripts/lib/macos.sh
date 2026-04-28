@@ -4,6 +4,70 @@
 
 # Sources a defaults.sh file and restarts affected system processes.
 # No-ops when --skip-macos-defaults is active or when not on macOS.
+# Enables Touch ID for sudo via /etc/pam.d/sudo_local (Sonoma+ approach).
+# Also adds pam_reattach so Touch ID works inside tmux.
+# Idempotent: checks each line independently before adding.
+# pam_reattach must appear before pam_tid.so in the file.
+enable_touch_id_sudo() {
+  if [[ "$SKIP_MACOS_DEFAULTS" == "true" ]]; then
+    log_warn "Skipping Touch ID sudo (--skip-macos-defaults)"
+    return 0
+  fi
+
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    log_warn "Skipping Touch ID sudo (not on macOS)"
+    return 0
+  fi
+
+  local pam_local="/etc/pam.d/sudo_local"
+  local pam_template="/etc/pam.d/sudo_local.template"
+  local reattach_line="auth       optional       /opt/homebrew/lib/pam/pam_reattach.so"
+  local tid_line="auth       sufficient     pam_tid.so"
+
+  local needs_reattach=false needs_tid=false
+  grep -q "pam_reattach.so" "${pam_local}" 2>/dev/null || needs_reattach=true
+  grep -q "pam_tid.so"      "${pam_local}" 2>/dev/null || needs_tid=true
+
+  if [[ "$needs_reattach" == "false" && "$needs_tid" == "false" ]]; then
+    log_info "Touch ID for sudo already enabled."
+    return 0
+  fi
+
+  log_info "Enabling Touch ID for sudo..."
+
+  if is_dry_run; then
+    log_info "[DRY-RUN] Would configure ${pam_local} with pam_reattach + pam_tid"
+    return 0
+  fi
+
+  # Create file if missing
+  if [[ ! -f "${pam_local}" ]]; then
+    if [[ -f "${pam_template}" ]]; then
+      sudo cp "${pam_template}" "${pam_local}"
+    else
+      printf "# sudo_local: local config file which survives system update and is included for sudo\n" \
+        | sudo tee "${pam_local}" > /dev/null
+    fi
+  fi
+
+  # Handle pam_tid.so first (uncomment or append)
+  if [[ "$needs_tid" == "true" ]]; then
+    if grep -q "^#.*pam_tid\.so" "${pam_local}"; then
+      sudo sed -i '' "s|^#.*pam_tid\.so|${tid_line}|" "${pam_local}"
+    else
+      printf "%s\n" "${tid_line}" | sudo tee -a "${pam_local}" > /dev/null
+    fi
+  fi
+
+  # Insert pam_reattach before pam_tid.so line (must come first for tmux support)
+  if [[ "$needs_reattach" == "true" ]]; then
+    sudo sed -i '' "s|.*pam_tid\.so|${reattach_line}\\
+&|" "${pam_local}"
+  fi
+
+  log_success "Touch ID for sudo enabled (pam_reattach + pam_tid)."
+}
+
 apply_macos_defaults() {
   local defaults_file="$1"
 

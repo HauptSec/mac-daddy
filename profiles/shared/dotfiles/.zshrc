@@ -1,15 +1,21 @@
+# ─── Powerlevel10k instant prompt ────────────────────────────────────────────
+# Must stay near the top. Anything requiring console input goes above this block.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # ─── Oh My Zsh ────────────────────────────────────────────────────────────────
 export ZSH="${HOME}/.oh-my-zsh"
 
-# Theme — uncomment one alternative to switch:
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Plugins — zsh-autosuggestions and zsh-syntax-highlighting are cloned to
-# ${ZSH_CUSTOM}/plugins/ by install.sh; the rest ship with Oh My Zsh.
+# Plugins — zsh-autosuggestions, zsh-syntax-highlighting, and powerlevel10k are
+# cloned to ${ZSH_CUSTOM}/ by install.sh; the rest ship with Oh My Zsh.
 plugins=(
   git
+  autojump
+  sudo
+  vscode
   zsh-autosuggestions
   zsh-syntax-highlighting
   z
@@ -81,3 +87,6 @@ fi
 # Load profile-specific config (work or personal) — sourced last so it can
 # override anything above. The symlink is managed by mac-daddy's dotfiles step.
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# ─── Powerlevel10k config ─────────────────────────────────────────────────────
+[[ ! -f "${HOME}/.p10k.zsh" ]] || source "${HOME}/.p10k.zsh"

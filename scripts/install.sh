@@ -165,9 +165,10 @@ install_zsh_plugins() {
   log_section "Zsh Plugins"
 
   local custom_dir="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins"
+  local themes_dir="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/themes"
 
   if is_dry_run; then
-    log_info "[DRY-RUN] Would clone zsh-autosuggestions and zsh-syntax-highlighting"
+    log_info "[DRY-RUN] Would clone zsh-autosuggestions, zsh-syntax-highlighting, and powerlevel10k"
     return 0
   fi
 
@@ -189,6 +190,16 @@ install_zsh_plugins() {
     log_success "  installed: zsh-syntax-highlighting"
   else
     log_warn "  skip: zsh-syntax-highlighting"
+  fi
+
+  if [[ ! -d "${themes_dir}/powerlevel10k" ]]; then
+    log_info "Installing powerlevel10k..."
+    run_or_dry git clone --depth=1 \
+      https://github.com/romkatv/powerlevel10k.git \
+      "${themes_dir}/powerlevel10k"
+    log_success "  installed: powerlevel10k"
+  else
+    log_warn "  skip: powerlevel10k"
   fi
 
   record_ok "Zsh plugins"
@@ -302,17 +313,22 @@ main() {
   apply_dotfiles "${profile}/dotfiles"
   record_ok "${PROFILE} dotfiles"
 
-  # 12. Shared macOS defaults
+  # 12. Touch ID for sudo
+  log_section "Touch ID for sudo"
+  enable_touch_id_sudo
+  record_ok "Touch ID for sudo"
+
+  # 13. Shared macOS defaults
   log_section "Shared macOS Defaults"
   apply_macos_defaults "${shared}/macos/defaults.sh"
   record_ok "Shared macOS defaults"
 
-  # 13. Profile macOS defaults
+  # 14. Profile macOS defaults
   log_section "${PROFILE} macOS Defaults"
   apply_macos_defaults "${profile}/macos/defaults.sh"
   record_ok "${PROFILE} macOS defaults"
 
-  # 14. Cleanup
+  # 15. Cleanup
   log_section "Cleanup"
   if command_exists brew; then
     log_info "Running brew cleanup..."
@@ -320,7 +336,7 @@ main() {
   fi
   record_ok "Cleanup"
 
-  # 15. Summary
+  # 16. Summary
   print_summary
 }
 
