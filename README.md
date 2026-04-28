@@ -63,6 +63,13 @@ Flags can be combined and appear in any order:
 - History sharing across sessions, deduplication, ignore-space
 - Modern aliases: `eza` for `ls`, `bat` for `cat`, `zoxide` for `cd` (when installed)
 
+**iTerm2**
+- Preferences pointed at `profiles/shared/iterm2/` — changes made in the UI write back to the repo automatically
+- Shell integration + utilities installed (`imgcat`, `imgls`, `it2copy`, etc.)
+
+**VS Code**
+- `settings.json` symlinked from `profiles/shared/vscode/` — edit in the repo, takes effect immediately
+
 **Security**
 - Touch ID for `sudo` via `/etc/pam.d/sudo_local` (Sonoma+ compatible)
 - `pam-reattach` so Touch ID works inside tmux
@@ -77,10 +84,12 @@ After cloning, edit these to make it yours:
 
 1. **`profiles/shared/dotfiles/.gitconfig`** — replace the TODO name/email with yours
 2. **`profiles/shared/dotfiles/.p10k.zsh`** — your Powerlevel10k prompt config (run `p10k configure` to regenerate)
-3. **`profiles/shared/apps/brew-formulae.txt`** — your CLI tools
-4. **`profiles/shared/apps/brew-casks.txt`** — your GUI apps
-5. **`profiles/shared/macos/defaults.sh`** — tweak any system preference values
-6. **`profiles/{work,personal}/apps/brew-casks.txt`** — profile-specific apps
+3. **`profiles/shared/vscode/settings.json`** — VS Code settings (symlinked; edit here or in VS Code, both work)
+4. **`profiles/shared/iterm2/com.googlecode.iterm2.plist`** — iTerm2 preferences (written directly by iTerm2 on change)
+5. **`profiles/shared/apps/brew-formulae.txt`** — your CLI tools
+6. **`profiles/shared/apps/brew-casks.txt`** — your GUI apps
+7. **`profiles/shared/macos/defaults.sh`** — tweak any system preference values
+8. **`profiles/{work,personal}/apps/brew-casks.txt`** — profile-specific apps
 
 ## How to Update an Existing Machine
 

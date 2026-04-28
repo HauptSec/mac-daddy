@@ -88,5 +88,8 @@ fi
 # override anything above. The symlink is managed by mac-daddy's dotfiles step.
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
+# ─── iTerm2 shell integration ─────────────────────────────────────────────────
+[[ -e "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # ─── Powerlevel10k config ─────────────────────────────────────────────────────
 [[ ! -f "${HOME}/.p10k.zsh" ]] || source "${HOME}/.p10k.zsh"

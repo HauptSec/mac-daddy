@@ -68,6 +68,41 @@ enable_touch_id_sudo() {
   log_success "Touch ID for sudo enabled (pam_reattach + pam_tid)."
 }
 
+# Points iTerm2 at the repo's iterm2/ directory so it reads and writes
+# preferences there directly — no copy needed, changes stay in git.
+configure_iterm2_prefs() {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    log_warn "Skipping iTerm2 prefs (not on macOS)"
+    return 0
+  fi
+
+  local iterm2_prefs_dir
+  iterm2_prefs_dir="$(cd "${REPO_ROOT}/profiles/shared/iterm2" && pwd)"
+
+  if [[ ! -d "${iterm2_prefs_dir}" ]]; then
+    log_warn "iTerm2 prefs dir not found: ${iterm2_prefs_dir}"
+    return 0
+  fi
+
+  local current_folder
+  current_folder="$(defaults read com.googlecode.iterm2 PrefsCustomFolder 2>/dev/null || true)"
+
+  if [[ "${current_folder}" == "${iterm2_prefs_dir}" ]]; then
+    log_info "iTerm2 already pointing at repo prefs."
+    return 0
+  fi
+
+  if is_dry_run; then
+    log_info "[DRY-RUN] Would set iTerm2 PrefsCustomFolder to: ${iterm2_prefs_dir}"
+    return 0
+  fi
+
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "${iterm2_prefs_dir}"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
+  log_success "iTerm2 preferences pointed at: ${iterm2_prefs_dir}"
+}
+
 apply_macos_defaults() {
   local defaults_file="$1"
 

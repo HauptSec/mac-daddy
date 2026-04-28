@@ -1,0 +1,9 @@
+{
+    "git.autorefresh": false,
+    "editor.minimap.enabled": false,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.fontFamily": "MesloLGS NF"
+}

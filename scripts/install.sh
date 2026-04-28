@@ -205,6 +205,31 @@ install_zsh_plugins() {
   record_ok "Zsh plugins"
 }
 
+install_iterm2_shell_integration() {
+  log_section "iTerm2 Shell Integration"
+
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    log_warn "Skipping iTerm2 shell integration (not on macOS)"
+    record_skip "iTerm2 shell integration"
+    return 0
+  fi
+
+  if [[ -f "${HOME}/.iterm2_shell_integration.zsh" ]]; then
+    log_warn "iTerm2 shell integration already installed — skipping"
+    record_skip "iTerm2 shell integration"
+    return 0
+  fi
+
+  if is_dry_run; then
+    log_info "[DRY-RUN] Would install iTerm2 shell integration + utilities"
+    return 0
+  fi
+
+  log_info "Installing iTerm2 shell integration and utilities..."
+  curl -fsSL https://iterm2.com/shell_integration/install_shell_integration_and_utilities.sh | bash
+  record_ok "iTerm2 shell integration"
+}
+
 # ─── Summary report ───────────────────────────────────────────────────────────
 print_summary() {
   log_section "Installation Summary"
@@ -269,9 +294,10 @@ main() {
   install_homebrew
   record_ok "Homebrew"
 
-  # 3. Oh My Zsh
+  # 3. Oh My Zsh + shell integration
   install_oh_my_zsh
   install_zsh_plugins
+  install_iterm2_shell_integration
 
   # 4. Shared formulae
   log_section "Shared Homebrew Formulae"
@@ -313,22 +339,32 @@ main() {
   apply_dotfiles "${profile}/dotfiles"
   record_ok "${PROFILE} dotfiles"
 
-  # 12. Touch ID for sudo
+  # 12. VS Code settings
+  log_section "VS Code Settings"
+  link_vscode_settings "${shared}/vscode"
+  record_ok "VS Code settings"
+
+  # 13. iTerm2 preferences
+  log_section "iTerm2 Preferences"
+  configure_iterm2_prefs
+  record_ok "iTerm2 preferences"
+
+  # 15. Touch ID for sudo
   log_section "Touch ID for sudo"
   enable_touch_id_sudo
   record_ok "Touch ID for sudo"
 
-  # 13. Shared macOS defaults
+  # 16. Shared macOS defaults
   log_section "Shared macOS Defaults"
   apply_macos_defaults "${shared}/macos/defaults.sh"
   record_ok "Shared macOS defaults"
 
-  # 14. Profile macOS defaults
+  # 17. Profile macOS defaults
   log_section "${PROFILE} macOS Defaults"
   apply_macos_defaults "${profile}/macos/defaults.sh"
   record_ok "${PROFILE} macOS defaults"
 
-  # 15. Cleanup
+  # 18. Cleanup
   log_section "Cleanup"
   if command_exists brew; then
     log_info "Running brew cleanup..."
@@ -336,7 +372,7 @@ main() {
   fi
   record_ok "Cleanup"
 
-  # 16. Summary
+  # 19. Summary
   print_summary
 }
 
