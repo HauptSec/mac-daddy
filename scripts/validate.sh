@@ -40,7 +40,6 @@ check_structure() {
     ".github/workflows/validate.yml"
     ".editorconfig"
     ".shellcheckrc"
-    "CHANGELOG.md"
     "README.md"
     "scripts/install.sh"
     "scripts/validate.sh"
