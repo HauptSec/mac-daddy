@@ -22,7 +22,7 @@ if [[ -z "${BASH_SOURCE[0]:-}" || "${BASH_SOURCE[0]:-}" == "/dev/stdin" ]]; then
   else
     git clone --depth=1 "$REPO_URL" "$REPO_CLONE_DIR"
   fi
-  exec bash "${REPO_CLONE_DIR}/scripts/install.sh" "$@"
+  exec bash "${REPO_CLONE_DIR}/scripts/install.sh" "$@" </dev/tty
 fi
 
 # ─── Resolve paths ────────────────────────────────────────────────────────────
@@ -154,11 +154,15 @@ install_oh_my_zsh() {
   # inside run_or_dry because argument expansion happens before the call.
   if is_dry_run; then
     log_info "[DRY-RUN] env RUNZSH=no CHSH=no sh -c \$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    record_ok "Oh My Zsh"
   else
-    env RUNZSH=no CHSH=no sh -c \
-      "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if env RUNZSH=no CHSH=no sh -c \
+      "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; then
+      record_ok "Oh My Zsh"
+    else
+      record_fail "Oh My Zsh installation failed"
+    fi
   fi
-  record_ok "Oh My Zsh"
 }
 
 install_zsh_plugins() {
@@ -172,37 +176,55 @@ install_zsh_plugins() {
     return 0
   fi
 
+  local plugins_ok=true
+
   if [[ ! -d "${custom_dir}/zsh-autosuggestions" ]]; then
     log_info "Installing zsh-autosuggestions..."
-    run_or_dry git clone --depth=1 \
+    if git clone --depth=1 \
       https://github.com/zsh-users/zsh-autosuggestions \
-      "${custom_dir}/zsh-autosuggestions"
-    log_success "  installed: zsh-autosuggestions"
+      "${custom_dir}/zsh-autosuggestions"; then
+      log_success "  installed: zsh-autosuggestions"
+    else
+      log_error "  failed: zsh-autosuggestions"
+      plugins_ok=false
+    fi
   else
     log_warn "  skip: zsh-autosuggestions"
   fi
 
   if [[ ! -d "${custom_dir}/zsh-syntax-highlighting" ]]; then
     log_info "Installing zsh-syntax-highlighting..."
-    run_or_dry git clone --depth=1 \
+    if git clone --depth=1 \
       https://github.com/zsh-users/zsh-syntax-highlighting \
-      "${custom_dir}/zsh-syntax-highlighting"
-    log_success "  installed: zsh-syntax-highlighting"
+      "${custom_dir}/zsh-syntax-highlighting"; then
+      log_success "  installed: zsh-syntax-highlighting"
+    else
+      log_error "  failed: zsh-syntax-highlighting"
+      plugins_ok=false
+    fi
   else
     log_warn "  skip: zsh-syntax-highlighting"
   fi
 
   if [[ ! -d "${themes_dir}/powerlevel10k" ]]; then
     log_info "Installing powerlevel10k..."
-    run_or_dry git clone --depth=1 \
+    if git clone --depth=1 \
       https://github.com/romkatv/powerlevel10k.git \
-      "${themes_dir}/powerlevel10k"
-    log_success "  installed: powerlevel10k"
+      "${themes_dir}/powerlevel10k"; then
+      log_success "  installed: powerlevel10k"
+    else
+      log_error "  failed: powerlevel10k"
+      plugins_ok=false
+    fi
   else
     log_warn "  skip: powerlevel10k"
   fi
 
-  record_ok "Zsh plugins"
+  if [[ "$plugins_ok" == "true" ]]; then
+    record_ok "Zsh plugins"
+  else
+    record_fail "Zsh plugins (one or more failed)"
+  fi
 }
 
 install_iterm2_shell_integration() {

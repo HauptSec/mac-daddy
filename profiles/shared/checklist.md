@@ -9,3 +9,4 @@
 - [ ] Open VS Code and sign in to Settings Sync if desired
 - [ ] Configure Touch ID fingerprints (System Settings → Touch ID & Password)
 - [ ] Open Claude and sign in
+- [ ] Grant App Management permission for brew autoupdate: System Settings → Privacy & Security → App Management → add `brew_autoupdate`, `ruby`, and `Terminal.app` — required for cask updates to replace in place (keeps Dock icons)

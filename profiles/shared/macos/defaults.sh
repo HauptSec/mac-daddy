@@ -5,7 +5,8 @@
 # NOTE: This file is sourced by macos.sh — do NOT add set -euo pipefail here.
 
 # ─── Close open System Preferences to prevent conflicts ──────────────────────
-osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || \
+  osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
 
 ###############################################################################
 # Global / NSGlobalDomain

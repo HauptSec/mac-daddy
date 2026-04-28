@@ -112,7 +112,9 @@ _install_direct_app() {
 
   if [[ -n "$post_install" ]]; then
     log_info "  post-install hook: ${post_install}"
-    run_or_dry bash -c "$post_install"
+    if ! run_or_dry bash -c "$post_install"; then
+      log_warn "  post-install hook failed for: ${name}"
+    fi
   fi
 }
 

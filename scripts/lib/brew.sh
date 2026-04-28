@@ -132,29 +132,18 @@ install_casks() {
   log_info "Casks — installed: ${installed_count}, skipped: ${skipped_count}, failed: ${failed_count}"
 }
 
-# Configures brew-autoupdate to run every 12 hours with upgrade + cleanup.
-# Idempotent: skips if the launchd agent is already registered.
+# Configures brew autoupdate to run every 12 hours with upgrade + cleanup.
 configure_brew_autoupdate() {
-  local plist="${HOME}/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist"
-
-  if [[ -f "${plist}" ]]; then
-    log_info "brew autoupdate already configured — skipping"
-    return 0
-  fi
-
   if is_dry_run; then
     log_info "[DRY-RUN] Would configure brew autoupdate (43200s, --upgrade --cleanup --sudo)"
     return 0
   fi
 
-  log_info "Tapping homebrew/autoupdate..."
-  brew tap homebrew/autoupdate
-
-  log_info "Installing autoupdate..."
-  brew install autoupdate
-
   log_info "Starting brew autoupdate (every 12h)..."
-  brew autoupdate start 43200 --upgrade --cleanup --immediate --sudo
-
-  log_success "brew autoupdate configured."
+  if brew autoupdate start 43200 --upgrade --cleanup --immediate --sudo; then
+    log_success "brew autoupdate configured."
+  else
+    log_error "brew autoupdate failed to start."
+    return 1
+  fi
 }
