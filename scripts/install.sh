@@ -294,57 +294,62 @@ main() {
   install_homebrew
   record_ok "Homebrew"
 
-  # 3. Oh My Zsh + shell integration
+  # 3. Homebrew autoupdate
+  log_section "Homebrew Autoupdate"
+  configure_brew_autoupdate
+  record_ok "Homebrew autoupdate"
+
+  # 4. Oh My Zsh + shell integration
   install_oh_my_zsh
   install_zsh_plugins
   install_iterm2_shell_integration
 
-  # 4. Shared formulae
+  # 5. Shared formulae
   log_section "Shared Homebrew Formulae"
   install_formulae "${shared}/apps/brew-formulae.txt"
   record_ok "Shared formulae"
 
-  # 5. Shared casks
+  # 6. Shared casks
   log_section "Shared Homebrew Casks"
   install_casks "${shared}/apps/brew-casks.txt"
   record_ok "Shared casks"
 
-  # 6. Profile formulae
+  # 7. Profile formulae
   log_section "${PROFILE} Homebrew Formulae"
   install_formulae "${profile}/apps/brew-formulae.txt"
   record_ok "${PROFILE} formulae"
 
-  # 7. Profile casks
+  # 8. Profile casks
   log_section "${PROFILE} Homebrew Casks"
   install_casks "${profile}/apps/brew-casks.txt"
   record_ok "${PROFILE} casks"
 
-  # 8. Shared direct downloads
+  # 9. Shared direct downloads
   log_section "Shared Direct Downloads"
   install_direct_downloads "${shared}/apps/direct-downloads.yaml"
   record_ok "Shared direct downloads"
 
-  # 9. Profile direct downloads
+  # 10. Profile direct downloads
   log_section "${PROFILE} Direct Downloads"
   install_direct_downloads "${profile}/apps/direct-downloads.yaml"
   record_ok "${PROFILE} direct downloads"
 
-  # 10. Shared dotfiles
+  # 11. Shared dotfiles
   log_section "Shared Dotfiles"
   apply_dotfiles "${shared}/dotfiles"
   record_ok "Shared dotfiles"
 
-  # 11. Profile dotfiles
+  # 12. Profile dotfiles
   log_section "${PROFILE} Dotfiles"
   apply_dotfiles "${profile}/dotfiles"
   record_ok "${PROFILE} dotfiles"
 
-  # 12. VS Code settings
+  # 13. VS Code settings
   log_section "VS Code Settings"
   link_vscode_settings "${shared}/vscode"
   record_ok "VS Code settings"
 
-  # 13. iTerm2 preferences
+  # 14. iTerm2 preferences
   log_section "iTerm2 Preferences"
   configure_iterm2_prefs
   record_ok "iTerm2 preferences"

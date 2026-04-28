@@ -5,5 +5,6 @@ chatgpt
 citrix-workspace
 pingid
 postman
+rancher
 slack
 zoom

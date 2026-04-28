@@ -32,7 +32,7 @@ The script will prompt you to choose a profile if you don't specify one.
 
 | Profile | Who it's for | Extra apps |
 |---------|-------------|------------|
-| **work** | Work / development machine | ChatGPT, Citrix Workspace, PingID, Postman, Slack, Zoom |
+| **work** | Work / development machine | ChatGPT, Citrix Workspace, PingID, Postman, Rancher Desktop, Slack, Zoom |
 | **personal** | Personal machine | Discord, Obsidian, Spotify |
 
 Both profiles share a common base: Claude, Claude Code, iTerm2, Maccy, Python, VS Code, Vivaldi, Oh My Zsh + Powerlevel10k, and the full macOS defaults setup.
@@ -69,6 +69,9 @@ Flags can be combined and appear in any order:
 
 **VS Code**
 - `settings.json` symlinked from `profiles/shared/vscode/` — edit in the repo, takes effect immediately
+
+**Homebrew**
+- Autoupdate runs every 12 hours: upgrades formulae and casks, cleans up old versions
 
 **Security**
 - Touch ID for `sudo` via `/etc/pam.d/sudo_local` (Sonoma+ compatible)
