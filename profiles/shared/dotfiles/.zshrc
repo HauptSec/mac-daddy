@@ -20,6 +20,13 @@ plugins=(
   fzf
 )
 
+# fzf plugin requires FZF_BASE before oh-my-zsh sources it
+if [[ -d "/opt/homebrew/opt/fzf" ]]; then
+  export FZF_BASE="/opt/homebrew/opt/fzf"
+elif [[ -d "/usr/local/opt/fzf" ]]; then
+  export FZF_BASE="/usr/local/opt/fzf"
+fi
+
 source "${ZSH}/oh-my-zsh.sh"
 
 # ─── PATH ─────────────────────────────────────────────────────────────────────

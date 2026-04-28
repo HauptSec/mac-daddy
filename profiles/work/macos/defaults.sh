@@ -23,6 +23,7 @@ if command -v dockutil &>/dev/null; then
   _dock_add "/Applications/Claude.app"
   _dock_add "/Applications/Visual Studio Code.app"
   _dock_add "/System/Applications/Notes.app"
+  _dock_add "/Applications/Delinea Connection Manager.app"
   _dock_add "/Applications/Termius.app"
   _dock_add "/Applications/Postman.app"
   _dock_add "/Applications/Citrix Workspace.app"

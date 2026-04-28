@@ -2,4 +2,10 @@
 # Add work-specific apps not available on Homebrew here.
 # See profiles/shared/apps/direct-downloads.yaml for field documentation.
 
-apps: []
+apps:
+  - name: "Delinea Connection Manager"
+    url: "https://downloads.cm.prod.delinea.com/Delinea.ConnectionManager.MacOSInstaller.pkg"
+    type: pkg
+    app_name: "Delinea Connection Manager.app"
+    checksum: ""
+    post_install: ""
