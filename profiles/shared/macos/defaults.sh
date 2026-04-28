@@ -242,6 +242,26 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 ###############################################################################
+# Dock apps — shared (dockutil)
+# Edit the list below to change pinned apps and order.
+# Profile-specific apps are appended in profiles/{work,personal}/macos/defaults.sh
+###############################################################################
+
+if command -v dockutil &>/dev/null; then
+  _dock_add() { [[ -d "$1" ]] && dockutil --add "$1" --no-restart 2>/dev/null || true; }
+
+  dockutil --remove all --no-restart 2>/dev/null || true
+
+  _dock_add "/System/Library/CoreServices/Finder.app"
+  _dock_add "/Applications/iTerm.app"
+  _dock_add "/Applications/Visual Studio Code.app"
+  _dock_add "/Applications/Vivaldi.app"
+  _dock_add "/Applications/Claude.app"
+
+  unset -f _dock_add
+fi
+
+###############################################################################
 # Process restarts — triggered by macos.sh after this file is sourced
 ###############################################################################
 # (Dock, Finder, SystemUIServer, cfprefsd are restarted in macos.sh)

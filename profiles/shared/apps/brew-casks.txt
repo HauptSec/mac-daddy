@@ -6,6 +6,6 @@ claude
 claude-code
 iterm2
 maccy
-python
+termius
 visual-studio-code
 vivaldi

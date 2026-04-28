@@ -5,6 +5,32 @@
 # NOTE: This file is sourced by macos.sh — do NOT add set -euo pipefail here.
 
 ###############################################################################
+# Dock apps — work (full order, overrides shared)
+###############################################################################
+
+if command -v dockutil &>/dev/null; then
+  _dock_add() { [[ -d "$1" ]] && dockutil --add "$1" --no-restart 2>/dev/null || true; }
+
+  dockutil --remove all --no-restart 2>/dev/null || true
+
+  _dock_add "/Applications/iTerm.app"
+  _dock_add "/Applications/Vivaldi.app"
+  _dock_add "/Applications/Slack.app"
+  _dock_add "/Applications/Microsoft Teams.app"
+  _dock_add "/Applications/Microsoft Outlook.app"
+  _dock_add "/Applications/Microsoft OneNote.app"
+  _dock_add "/Applications/ChatGPT.app"
+  _dock_add "/Applications/Claude.app"
+  _dock_add "/Applications/Visual Studio Code.app"
+  _dock_add "/System/Applications/Notes.app"
+  _dock_add "/Applications/Termius.app"
+  _dock_add "/Applications/Postman.app"
+  _dock_add "/Applications/Citrix Workspace.app"
+
+  unset -f _dock_add
+fi
+
+###############################################################################
 # Work-specific Dock overrides
 ###############################################################################
 

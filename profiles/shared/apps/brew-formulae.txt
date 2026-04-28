@@ -3,9 +3,11 @@
 # Format: one formula per line; lines starting with # are ignored.
 
 curl
+dockutil
 fzf
 git
 pam-reattach
 pinentry-mac
+python@3.14
 wget
 zoxide
