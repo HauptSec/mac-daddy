@@ -59,9 +59,9 @@ Flags can be combined and appear in any order:
 
 **Shell**
 - Oh My Zsh with Powerlevel10k theme (rainbow, 2-line prompt)
-- Plugins: `git`, `autojump`, `sudo`, `vscode`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `z`, `fzf`
+- Plugins: `git`, `sudo`, `vscode`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf`
 - History sharing across sessions, deduplication, ignore-space
-- Modern aliases: `eza` for `ls`, `bat` for `cat`, `zoxide` for `cd` (when installed)
+- Modern aliases: `eza` for `ls`, `bat` for `cat`, `zoxide` for `cd`
 
 **iTerm2**
 - Preferences pointed at `profiles/shared/iterm2/` — changes made in the UI write back to the repo automatically
@@ -105,6 +105,14 @@ git pull
 ```
 
 Only new items (added since your last run) will be installed. Dotfiles are always live-synced via symlinks so they're already up to date.
+
+## Post-Install Checklist
+
+At the end of every install run, the script prints a checklist of manual steps that can't be automated (signing in to apps, enrolling devices, etc.). The checklists are plain markdown files — edit them to match your setup:
+
+- `profiles/shared/checklist.md` — steps shown for all profiles
+- `profiles/work/checklist.md` — work-only steps
+- `profiles/personal/checklist.md` — personal-only steps
 
 ## How to Add Apps
 

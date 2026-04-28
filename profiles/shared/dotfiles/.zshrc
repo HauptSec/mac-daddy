@@ -13,12 +13,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # cloned to ${ZSH_CUSTOM}/ by install.sh; the rest ship with Oh My Zsh.
 plugins=(
   git
-  autojump
   sudo
   vscode
   zsh-autosuggestions
   zsh-syntax-highlighting
-  z
   fzf
 )
 

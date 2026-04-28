@@ -259,6 +259,36 @@ print_summary() {
   log_success "mac-daddy setup complete! Open a new terminal to load your config."
 }
 
+print_post_install_checklist() {
+  local shared_checklist="${REPO_ROOT}/profiles/shared/checklist.md"
+  local profile_checklist="${REPO_ROOT}/profiles/${PROFILE}/checklist.md"
+
+  local has_checklist=false
+  [[ -f "${shared_checklist}" ]] && has_checklist=true
+  [[ -f "${profile_checklist}" ]] && has_checklist=true
+  [[ "${has_checklist}" == "false" ]] && return 0
+
+  printf "\n${BOLD}╔══════════════════════════════════════╗${RESET}\n"
+  printf "${BOLD}║     Post-Install Checklist           ║${RESET}\n"
+  printf "${BOLD}╚══════════════════════════════════════╝${RESET}\n\n"
+  printf "Complete these manual steps before using your machine:\n\n"
+
+  if [[ -f "${shared_checklist}" ]]; then
+    while IFS= read -r line; do
+      printf "%s\n" "${line}"
+    done < "${shared_checklist}"
+  fi
+
+  if [[ -f "${profile_checklist}" ]]; then
+    [[ -f "${shared_checklist}" ]] && printf "\n"
+    while IFS= read -r line; do
+      printf "%s\n" "${line}"
+    done < "${profile_checklist}"
+  fi
+
+  printf "\n"
+}
+
 # ─── Main ─────────────────────────────────────────────────────────────────────
 main() {
   if [[ ! -d "${REPO_ROOT}/profiles" ]]; then
@@ -377,8 +407,9 @@ main() {
   fi
   record_ok "Cleanup"
 
-  # 19. Summary
+  # 19. Summary + post-install checklist
   print_summary
+  print_post_install_checklist
 }
 
 main "$@"
