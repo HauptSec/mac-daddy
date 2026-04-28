@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="mac-daddy-logo.svg" alt="mac-daddy logo" width="520"/>
+</p>
+
 # mac-daddy
 
 Automated macOS setup — from a blank Mac to a fully configured personal environment in one command.
