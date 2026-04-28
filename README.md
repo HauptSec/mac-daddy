@@ -16,14 +16,14 @@ Automated macOS setup — from a blank Mac to a fully configured personal enviro
 
 **Option 1: Clone and run (recommended)**
 ```bash
-git clone https://github.com/CHANGEME_USERNAME/mac-daddy
+git clone https://github.com/HauptSec/mac-daddy
 cd mac-daddy
 ./scripts/install.sh
 ```
 
 **Option 2: One-liner** (clones the repo to `~/.mac-daddy/repo` then runs)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/CHANGEME_USERNAME/mac-daddy/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/HauptSec/mac-daddy/main/scripts/install.sh | bash
 ```
 
 The script will prompt you to choose a profile if you don't specify one.

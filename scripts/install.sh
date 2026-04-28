@@ -15,7 +15,7 @@ if [[ -z "${BASH_SOURCE[0]:-}" || "${BASH_SOURCE[0]:-}" == "/dev/stdin" ]]; then
   echo "[mac-daddy] Detected curl-pipe execution. Cloning repo..."
   REPO_CLONE_DIR="${HOME}/.mac-daddy/repo"
   # TODO: Replace with your actual repository URL before publishing
-  REPO_URL="https://github.com/CHANGEME_USERNAME/mac-daddy"
+  REPO_URL="https://github.com/HauptSec/mac-daddy"
   if [[ -d "$REPO_CLONE_DIR/.git" ]]; then
     echo "[mac-daddy] Repo already cloned at ${REPO_CLONE_DIR} — pulling latest"
     git -C "$REPO_CLONE_DIR" pull --ff-only
